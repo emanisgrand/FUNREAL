@@ -24,12 +24,16 @@ void AMovingPlatform::BeginPlay()
 void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	// Capture current actor location
+	FVector CurrentLocation = GetActorLocation();
+	// Add result of FVector value * deltatime to CurrentLocation
+	CurrentLocation += (PlatformVelocity * DeltaTime);
+	// Update Actor location
+	SetActorLocation(CurrentLocation);
 
-	FVector localVector = platformVector;
-
-	platformVector.X += 1;
-
-	SetActorLocation(localVector);
+	// Send the platform back if it's gone too far
+		// check how far the platform's moved
+		// send back if it's gone too far
 
 }
 
