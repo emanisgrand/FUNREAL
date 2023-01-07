@@ -27,10 +27,17 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 	CurrentLocation += (PlatformVelocity * DeltaTime);
 
-	// track distance traveled.
-	DistanceTraveled = FVector::Dist(StartLocation, CurrentLocation);
-	
-	// Update Actor location
 	SetActorLocation(CurrentLocation);
+
+	// track distance traveled.
+	float DistanceTraveled = FVector::Dist(StartLocation, CurrentLocation);
+	
+	if (DistanceTraveled > MoveDistance)
+	{
+		PlatformVelocity = -PlatformVelocity;
+		// set the starting location equal to its current location to reset the 
+		// distance traveled.
+		StartLocation = CurrentLocation;
+	}	
 }
 
