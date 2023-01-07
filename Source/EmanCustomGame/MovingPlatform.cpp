@@ -34,10 +34,14 @@ void AMovingPlatform::Tick(float DeltaTime)
 	
 	if (DistanceTraveled > MoveDistance)
 	{
+		// Cache the normal of the actor's current direction 
+		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
+		// Increment the start location in the direction the platform is moving by the distance each step
+		StartLocation += (MoveDirection * MoveDistance);
+		// update actor location with updated start location.
+		SetActorLocation(StartLocation);
+		// Reverse directions.
 		PlatformVelocity = -PlatformVelocity;
-		// set the starting location equal to its current location to reset the 
-		// distance traveled.
-		StartLocation = CurrentLocation;
 	}	
 }
 
