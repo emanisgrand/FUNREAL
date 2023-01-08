@@ -38,8 +38,13 @@ void AMovingPlatform::Tick(float DeltaTime)
 	
 	if (DistanceTraveled > MoveDistance)
 	{
+
+#pragma region FString Lecture
+		FString name = GetName();
 		float overShoot = (DistanceTraveled - MoveDistance);
-		UE_LOG(LogTemp, Warning, TEXT("Shot-over by  %f"), overShoot);
+		UE_LOG(LogTemp, Warning, TEXT("%s Shot-over by %f"),*name, overShoot);
+#pragma endregion 
+
 		// Cache the normal of the actor's current direction 
 		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
 		// Increment the start location in the direction the platform is moving by the distance each step
