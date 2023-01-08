@@ -36,4 +36,7 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = "Moving Platform")
 	FVector PlatformVelocity = FVector(0, 100, 0);
+
+	UPROPERTY(EditAnywhere, Category = "Rotation")
+	FRotator PlatformRotationSpeed;
 };

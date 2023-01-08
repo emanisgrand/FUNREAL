@@ -49,7 +49,7 @@ void AMovingPlatform::MovePlatform(float DeltaTime)
 		SetActorLocation(CurrentLocation);
 	}
 }
-#pragma region Const Member Functions Lecture
+
 bool AMovingPlatform::ShouldPlatformReturn() const
 {
 	return (MoveDistance < GetDistanceMoved());
@@ -59,15 +59,10 @@ float AMovingPlatform::GetDistanceMoved() const
 {
 	return FVector::Dist(StartLocation, GetActorLocation());
 }
-#pragma endregion
 
+#pragma region FRotator Lecture
 void AMovingPlatform::RotatePlatform(float DeltaTime)
 {
-	FRotator CurrentRotation = GetActorRotation();
-
-	CurrentRotation += (FRotator(0, 2, 0));
-
-	SetActorRotation(CurrentRotation);
-
-	UE_LOG(LogTemp, Warning, TEXT("%s is rotating"), *GetName());
+	AddActorLocalRotation(PlatformRotationSpeed * DeltaTime);
 }
+#pragma endregion
