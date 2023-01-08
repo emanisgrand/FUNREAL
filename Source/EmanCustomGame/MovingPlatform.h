@@ -23,8 +23,8 @@ private:
 	virtual void Tick(float DeltaTime) override;
 	void MovePlatform(float DeltaTime);
 	void RotatePlatform(float DeltaTime);
-	bool ShouldPlatformReturn();
-	float GetDistanceMoved();
+	bool ShouldPlatformReturn() const;
+	float GetDistanceMoved() const;
 
 	FVector StartLocation; 
 

@@ -29,7 +29,7 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 void AMovingPlatform::MovePlatform(float DeltaTime)
 {
-#pragma region Return Statements Lecture
+
 
 	if (ShouldPlatformReturn())
 	{
@@ -49,17 +49,16 @@ void AMovingPlatform::MovePlatform(float DeltaTime)
 		SetActorLocation(CurrentLocation);
 	}
 }
-
-bool AMovingPlatform::ShouldPlatformReturn()
+#pragma region Const Member Functions Lecture
+bool AMovingPlatform::ShouldPlatformReturn() const
 {
 	return (MoveDistance < GetDistanceMoved());
 }
 
-float AMovingPlatform::GetDistanceMoved()
+float AMovingPlatform::GetDistanceMoved() const
 {
 	return FVector::Dist(StartLocation, GetActorLocation());
 }
-
 #pragma endregion
 
 void AMovingPlatform::RotatePlatform(float DeltaTime)
