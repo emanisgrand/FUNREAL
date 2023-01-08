@@ -15,6 +15,10 @@ void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();	
 	StartLocation = GetActorLocation();
+	UE_LOG(LogTemp, Display, TEXT("Check this value out %f"), MoveDistance);
+	UE_LOG(LogTemp, Warning, TEXT("Check this value out %f"), MoveDistance);
+	UE_LOG(LogTemp, Error, TEXT("Check this value out %f"), MoveDistance);
+	
 }
 
 // Called every frame
@@ -34,6 +38,8 @@ void AMovingPlatform::Tick(float DeltaTime)
 	
 	if (DistanceTraveled > MoveDistance)
 	{
+		float overShoot = (DistanceTraveled - MoveDistance);
+		UE_LOG(LogTemp, Warning, TEXT("Shot-over by  %f"), overShoot);
 		// Cache the normal of the actor's current direction 
 		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
 		// Increment the start location in the direction the platform is moving by the distance each step

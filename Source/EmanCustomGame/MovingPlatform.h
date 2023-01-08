@@ -28,9 +28,10 @@ public:
 
 	FVector StartLocation; 
 
+	UPROPERTY(VisibleAnywhere, Category="Moving Platform")
 	FVector CurrentLocation;
 
-	UPROPERTY(VisibleAnywhere, Category = "Moving Platform")
+	UPROPERTY(EditAnywhere, Category = "Moving Platform")
 	float MoveDistance = 100;
 
 	UPROPERTY(EditAnywhere, Category="Moving Platform")
