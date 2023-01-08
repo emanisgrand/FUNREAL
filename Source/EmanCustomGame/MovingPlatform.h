@@ -15,25 +15,24 @@ public:
 	// Sets default values for this actor's properties
 	AMovingPlatform();
 
-	void MovePlatformForward(float);
-	void MovePlatformBack(float);
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+private:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	void MovePlatform(float DeltaTime);
+	void RotatePlatform(float DeltaTime);
 
 	FVector StartLocation; 
 
-	UPROPERTY(VisibleAnywhere, Category="Moving Platform")
-	FVector CurrentLocation;
-
 	UPROPERTY(EditAnywhere, Category = "Moving Platform")
 	float MoveDistance = 100;
-
-	UPROPERTY(EditAnywhere, Category="Moving Platform")
-	FVector PlatformVelocity = FVector(0,100,0);
+	
+	UPROPERTY(VisibleAnywhere, Category="Moving Platform")
+	FVector CurrentLocation;
+	
+	UPROPERTY(EditAnywhere, Category = "Moving Platform")
+	FVector PlatformVelocity = FVector(0, 100, 0);
 };

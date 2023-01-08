@@ -26,6 +26,13 @@ void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	MovePlatform(DeltaTime);
+	RotatePlatform(DeltaTime);
+}
+
+#pragma region Member Function Lecture
+void AMovingPlatform::MovePlatform(float DeltaTime)
+{
 	// Capture current actor location
 	CurrentLocation = GetActorLocation();
 
@@ -35,16 +42,9 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 	// track distance traveled.
 	float DistanceTraveled = FVector::Dist(StartLocation, CurrentLocation);
-	
+
 	if (DistanceTraveled > MoveDistance)
 	{
-
-#pragma region FString Lecture
-		FString name = GetName();
-		float overShoot = (DistanceTraveled - MoveDistance);
-		UE_LOG(LogTemp, Warning, TEXT("%s Shot-over by %f"),*name, overShoot);
-#pragma endregion 
-
 		// Cache the normal of the actor's current direction 
 		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
 		// Increment the start location in the direction the platform is moving by the distance each step
@@ -53,6 +53,17 @@ void AMovingPlatform::Tick(float DeltaTime)
 		SetActorLocation(StartLocation);
 		// Reverse directions.
 		PlatformVelocity = -PlatformVelocity;
-	}	
+	}
 }
 
+void AMovingPlatform::RotatePlatform(float DeltaTime)
+{
+	FRotator CurrentRotation = GetActorRotation();
+
+	CurrentRotation += (FRotator(0, 2, 0));
+
+	SetActorRotation(CurrentRotation);
+
+	UE_LOG(LogTemp, Warning, TEXT("%s is rotating"), *GetName());
+}
+#pragma endregion
