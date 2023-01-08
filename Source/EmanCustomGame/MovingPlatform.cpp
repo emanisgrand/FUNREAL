@@ -14,11 +14,7 @@ AMovingPlatform::AMovingPlatform()
 void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();	
-	StartLocation = GetActorLocation();
-	UE_LOG(LogTemp, Display, TEXT("Check this value out %f"), MoveDistance);
-	UE_LOG(LogTemp, Warning, TEXT("Check this value out %f"), MoveDistance);
-	UE_LOG(LogTemp, Error, TEXT("Check this value out %f"), MoveDistance);
-	
+	StartLocation = GetActorLocation();	
 }
 
 // Called every frame
@@ -30,20 +26,12 @@ void AMovingPlatform::Tick(float DeltaTime)
 	RotatePlatform(DeltaTime);
 }
 
-#pragma region Member Function Lecture
+
 void AMovingPlatform::MovePlatform(float DeltaTime)
 {
-	// Capture current actor location
-	CurrentLocation = GetActorLocation();
+#pragma region Return Statements Lecture
 
-	CurrentLocation += (PlatformVelocity * DeltaTime);
-
-	SetActorLocation(CurrentLocation);
-
-	// track distance traveled.
-	float DistanceTraveled = FVector::Dist(StartLocation, CurrentLocation);
-
-	if (DistanceTraveled > MoveDistance)
+	if (ShouldPlatformReturn())
 	{
 		// Cache the normal of the actor's current direction 
 		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
@@ -54,7 +42,25 @@ void AMovingPlatform::MovePlatform(float DeltaTime)
 		// Reverse directions.
 		PlatformVelocity = -PlatformVelocity;
 	}
+	else
+	{
+		CurrentLocation = GetActorLocation();
+		CurrentLocation += (PlatformVelocity * DeltaTime);
+		SetActorLocation(CurrentLocation);
+	}
 }
+
+bool AMovingPlatform::ShouldPlatformReturn()
+{
+	return (MoveDistance < GetDistanceMoved());
+}
+
+float AMovingPlatform::GetDistanceMoved()
+{
+	return FVector::Dist(StartLocation, GetActorLocation());
+}
+
+#pragma endregion
 
 void AMovingPlatform::RotatePlatform(float DeltaTime)
 {
@@ -66,4 +72,3 @@ void AMovingPlatform::RotatePlatform(float DeltaTime)
 
 	UE_LOG(LogTemp, Warning, TEXT("%s is rotating"), *GetName());
 }
-#pragma endregion

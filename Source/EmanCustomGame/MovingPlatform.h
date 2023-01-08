@@ -20,10 +20,11 @@ protected:
 	virtual void BeginPlay() override;
 
 private:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void MovePlatform(float DeltaTime);
 	void RotatePlatform(float DeltaTime);
+	bool ShouldPlatformReturn();
+	float GetDistanceMoved();
 
 	FVector StartLocation; 
 
